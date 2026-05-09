@@ -41,7 +41,6 @@ rules:
       coordinator before platforms are forwarded, so unreachable or
       misconfigured printers raise `ConfigEntryNotReady` at setup time.
   unique-config-entry: done
-
   # Silver
   action-exceptions:
     status: exempt

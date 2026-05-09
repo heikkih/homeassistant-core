@@ -66,7 +66,11 @@ async def test_preserves_existing_unique_id(
     """Test setup does not overwrite existing unique_id."""
     entry = MockConfigEntry(
         domain=DOMAIN,
-        data={CONF_HOST: "http://example.com", CONF_USERNAME: "dummy", CONF_PASSWORD: "dummypw"},
+        data={
+            CONF_HOST: "http://example.com",
+            CONF_USERNAME: "dummy",
+            CONF_PASSWORD: "dummypw",
+        },
         unique_id="existing-unique-id",
         version=1,
         minor_version=2,
