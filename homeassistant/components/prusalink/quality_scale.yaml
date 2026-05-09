@@ -40,12 +40,7 @@ rules:
       `coordinator.async_config_entry_first_refresh()` runs for every
       coordinator before platforms are forwarded, so unreachable or
       misconfigured printers raise `ConfigEntryNotReady` at setup time.
-  unique-config-entry:
-    status: todo
-    comment: |
-      The config flow does not call `set_unique_id`, so the same printer can
-      be added twice. Use the serial number from `/api/v1/info` (already
-      fetched during validation) as the unique_id.
+  unique-config-entry: done
 
   # Silver
   action-exceptions:
