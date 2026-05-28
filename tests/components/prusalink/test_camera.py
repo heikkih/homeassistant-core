@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 import pytest
 
-from homeassistant.const import Platform
+from homeassistant.const import Platform, STATE_UNAVAILABLE
 from homeassistant.core import HomeAssistant
 from homeassistant.setup import async_setup_component
 
@@ -28,7 +28,7 @@ async def test_camera_no_job(
     assert await async_setup_component(hass, "prusalink", {})
     state = hass.states.get("camera.workshop_mock_title_preview")
     assert state is not None
-    assert state.state == "unavailable"
+    assert state.state == STATE_UNAVAILABLE
 
     client = await hass_client()
     resp = await client.get("/api/camera_proxy/camera.workshop_mock_title_preview")
@@ -46,7 +46,7 @@ async def test_camera_idle_job_mk3(
     assert await async_setup_component(hass, "prusalink", {})
     state = hass.states.get("camera.workshop_mock_title_preview")
     assert state is not None
-    assert state.state == "unavailable"
+    assert state.state == STATE_UNAVAILABLE
 
     client = await hass_client()
     resp = await client.get("/api/camera_proxy/camera.workshop_mock_title_preview")

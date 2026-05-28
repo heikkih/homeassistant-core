@@ -17,6 +17,7 @@ from homeassistant.const import (
     ATTR_UNIT_OF_MEASUREMENT,
     PERCENTAGE,
     REVOLUTIONS_PER_MINUTE,
+    STATE_UNKNOWN,
     Platform,
     UnitOfLength,
     UnitOfTemperature,
@@ -110,21 +111,21 @@ async def test_sensors_no_job(hass: HomeAssistant, mock_config_entry, mock_api) 
 
     state = hass.states.get("sensor.workshop_mock_title_progress")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
     assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == "%"
 
     state = hass.states.get("sensor.workshop_mock_title_filename")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
 
     state = hass.states.get("sensor.workshop_mock_title_print_start")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
     assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.TIMESTAMP
 
     state = hass.states.get("sensor.workshop_mock_title_print_finish")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
     assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.TIMESTAMP
 
     state = hass.states.get("sensor.workshop_mock_title_hotend_fan")
@@ -219,21 +220,21 @@ async def test_sensors_idle_job_mk3(
 
     state = hass.states.get("sensor.workshop_mock_title_progress")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
     assert state.attributes[ATTR_UNIT_OF_MEASUREMENT] == "%"
 
     state = hass.states.get("sensor.workshop_mock_title_filename")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
 
     state = hass.states.get("sensor.workshop_mock_title_print_start")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
     assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.TIMESTAMP
 
     state = hass.states.get("sensor.workshop_mock_title_print_finish")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
     assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.TIMESTAMP
 
     state = hass.states.get("sensor.workshop_mock_title_hotend_fan")
@@ -325,7 +326,7 @@ async def test_sensors_active_job_with_nullable_fields(
 
     state = hass.states.get("sensor.workshop_mock_title_filename")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
 
     state = hass.states.get("sensor.workshop_mock_title_print_start")
     assert state is not None
@@ -333,7 +334,7 @@ async def test_sensors_active_job_with_nullable_fields(
 
     state = hass.states.get("sensor.workshop_mock_title_print_finish")
     assert state is not None
-    assert state.state == "unknown"
+    assert state.state == STATE_UNKNOWN
 
 
 @pytest.mark.usefixtures("entity_registry_enabled_by_default")

@@ -10,7 +10,13 @@ import pytest
 from homeassistant.components.prusalink import DOMAIN
 from homeassistant.components.prusalink.config_flow import PrusaLinkConfigFlow
 from homeassistant.config_entries import ConfigEntry, ConfigEntryState
-from homeassistant.const import CONF_API_KEY, CONF_HOST, CONF_PASSWORD, CONF_USERNAME
+from homeassistant.const import (
+    CONF_API_KEY,
+    CONF_HOST,
+    CONF_PASSWORD,
+    CONF_USERNAME,
+    STATE_UNAVAILABLE,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers import (
     area_registry as ar,
@@ -62,7 +68,7 @@ async def test_unloading(
     assert mock_config_entry.state is ConfigEntryState.NOT_LOADED
 
     for state in hass.states.async_all():
-        assert state.state == "unavailable"
+        assert state.state == STATE_UNAVAILABLE
 
 
 @pytest.mark.parametrize(
@@ -98,7 +104,7 @@ async def test_failed_update(
         await hass.async_block_till_done()
 
     for state in hass.states.async_all():
-        assert state.state == "unavailable"
+        assert state.state == STATE_UNAVAILABLE
 
 
 async def test_migration_from_1_1_to_1_2(

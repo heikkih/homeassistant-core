@@ -6,7 +6,7 @@ from unittest.mock import patch
 from pyprusalink.types import Conflict
 import pytest
 
-from homeassistant.const import Platform
+from homeassistant.const import Platform, STATE_UNAVAILABLE, STATE_UNKNOWN
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.setup import async_setup_component
@@ -33,7 +33,7 @@ def press_button_and_verify(
     async def _press_and_verify(entity_id: str, method: str) -> None:
         state = hass.states.get(entity_id)
         assert state is not None
-        assert state.state == "unknown"
+        assert state.state == STATE_UNKNOWN
 
         with patch(f"pyprusalink.PrusaLink.{method}") as mock_meth:
             await hass.services.async_call(
@@ -126,4 +126,4 @@ async def test_button_continue_unavailable_when_printing(
     assert await async_setup_component(hass, "prusalink", {})
     state = hass.states.get("button.workshop_mock_title_continue_job")
     assert state is not None
-    assert state.state == "unavailable"
+    assert state.state == STATE_UNAVAILABLE
