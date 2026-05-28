@@ -2,13 +2,16 @@
 
 from unittest.mock import patch
 
+from pyprusalink.types import PrinterState
 import pytest
 
-from homeassistant.const import Platform, STATE_UNAVAILABLE
+from homeassistant.const import STATE_UNAVAILABLE, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.setup import async_setup_component
 
 from tests.typing import ClientSessionGenerator
+
+PRINTER_STATE_IDLE = PrinterState.IDLE.value.lower()
 
 
 @pytest.fixture(autouse=True)
@@ -64,7 +67,7 @@ async def test_camera_active_job(
     assert await async_setup_component(hass, "prusalink", {})
     state = hass.states.get("camera.workshop_mock_title_preview")
     assert state is not None
-    assert state.state == "idle"
+    assert state.state == PRINTER_STATE_IDLE
 
     client = await hass_client()
 

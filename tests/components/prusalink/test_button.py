@@ -6,7 +6,7 @@ from unittest.mock import patch
 from pyprusalink.types import Conflict
 import pytest
 
-from homeassistant.const import Platform, STATE_UNAVAILABLE, STATE_UNKNOWN
+from homeassistant.const import STATE_UNAVAILABLE, STATE_UNKNOWN, Platform
 from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 from homeassistant.setup import async_setup_component

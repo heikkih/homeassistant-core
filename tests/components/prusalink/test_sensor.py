@@ -4,6 +4,7 @@ from datetime import UTC, datetime
 from typing import Any
 from unittest.mock import patch
 
+from pyprusalink.types import PrinterState
 import pytest
 
 from homeassistant.components.sensor import (
@@ -27,6 +28,10 @@ from homeassistant.setup import async_setup_component
 
 from tests.common import MockConfigEntry
 
+PRINTER_STATE_OPTIONS = [state.value.lower() for state in PrinterState]
+PRINTER_STATE_IDLE = PrinterState.IDLE.value.lower()
+PRINTER_STATE_PRINTING = PrinterState.PRINTING.value.lower()
+
 
 @pytest.fixture(autouse=True)
 def setup_sensor_platform_only():
@@ -42,19 +47,9 @@ async def test_sensors_no_job(hass: HomeAssistant, mock_config_entry, mock_api) 
 
     state = hass.states.get("sensor.workshop_mock_title")
     assert state is not None
-    assert state.state == "idle"
+    assert state.state == PRINTER_STATE_IDLE
     assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.ENUM
-    assert state.attributes[ATTR_OPTIONS] == [
-        "idle",
-        "busy",
-        "printing",
-        "paused",
-        "finished",
-        "stopped",
-        "error",
-        "attention",
-        "ready",
-    ]
+    assert state.attributes[ATTR_OPTIONS] == PRINTER_STATE_OPTIONS
 
     state = hass.states.get("sensor.workshop_mock_title_heatbed_temperature")
     assert state is not None
@@ -151,19 +146,9 @@ async def test_sensors_idle_job_mk3(
 
     state = hass.states.get("sensor.workshop_mock_title")
     assert state is not None
-    assert state.state == "idle"
+    assert state.state == PRINTER_STATE_IDLE
     assert state.attributes[ATTR_DEVICE_CLASS] == SensorDeviceClass.ENUM
-    assert state.attributes[ATTR_OPTIONS] == [
-        "idle",
-        "busy",
-        "printing",
-        "paused",
-        "finished",
-        "stopped",
-        "error",
-        "attention",
-        "ready",
-    ]
+    assert state.attributes[ATTR_OPTIONS] == PRINTER_STATE_OPTIONS
 
     state = hass.states.get("sensor.workshop_mock_title_heatbed_temperature")
     assert state is not None
@@ -265,7 +250,7 @@ async def test_sensors_active_job(
 
     state = hass.states.get("sensor.workshop_mock_title")
     assert state is not None
-    assert state.state == "printing"
+    assert state.state == PRINTER_STATE_PRINTING
 
     state = hass.states.get("sensor.workshop_mock_title_progress")
     assert state is not None
@@ -318,7 +303,7 @@ async def test_sensors_active_job_with_nullable_fields(
 
     state = hass.states.get("sensor.workshop_mock_title")
     assert state is not None
-    assert state.state == "printing"
+    assert state.state == PRINTER_STATE_PRINTING
 
     state = hass.states.get("sensor.workshop_mock_title_progress")
     assert state is not None
